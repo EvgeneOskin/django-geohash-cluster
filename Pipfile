@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+
+[dev-packages]
+bumpversion = "*"
+wheel = "*"
+coverage = "*"
+pytest = "*"
+codecov = "*"
+prospector = "*"
+pytest-django = "*"
+pytest-cov = "*"
+
+[packages]
+django-model-utils = ">=2.0"
+Django = "*"
