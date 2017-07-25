@@ -1,0 +1,11 @@
+[flake8]
+ignore = D203
+exclude =
+    geohash_cluster/migrations,
+    .git,
+    .tox,
+    docs/conf.py,
+    build,
+    dist
+max-line-length = 119
+max-complexity = 10

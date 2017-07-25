@@ -7,11 +7,11 @@ bumpversion = "*"
 wheel = "*"
 coverage = "*"
 pytest = "*"
-codecov = "*"
+flake8 = "*"
 prospector = "*"
 pytest-django = "*"
 pytest-cov = "*"
 
 [packages]
-django-model-utils = ">=2.0"
 Django = "*"
+flake8-docstrings = "*"

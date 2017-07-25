@@ -56,7 +56,7 @@ setup(
         'geohash_cluster',
     ],
     include_package_data=True,
-    install_requires=["django>=1.8",],
+    install_requires=["django>=1.8", ],
     license="MIT",
     zip_safe=False,
     keywords='django-geohash-cluster',
