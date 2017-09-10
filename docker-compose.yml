@@ -1,0 +1,12 @@
+version: '2.2'
+
+services:
+  app:
+    build: .
+  db:
+    image: mdillon/postgis
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+

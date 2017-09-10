@@ -11,7 +11,10 @@ flake8 = "*"
 prospector = "*"
 pytest-django = "*"
 pytest-cov = "*"
+docker-compose = "*"
+model-mommy = "*"
 
 [packages]
-Django = "*"
+django = "*"
 flake8-docstrings = "*"
+python-geohash = "*"

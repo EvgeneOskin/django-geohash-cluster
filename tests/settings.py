@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sites",
     "geohash_cluster",
+    "tests"
 ]
 
 SITE_ID = 1
