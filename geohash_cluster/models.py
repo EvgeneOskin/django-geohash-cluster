@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.gis.db import models
+from django.contrib.gis.db.models.functions import GeoHash
+
 from .settings import settings
+import geohash
 
 
 class ClusterableQuerySet(models.QuerySet):
@@ -9,12 +12,10 @@ class ClusterableQuerySet(models.QuerySet):
     def cluster(self, precision):
         field = self.model.GEOCLUSTER_FIELD
 
-        return self.annotate(geohash=models.GeoHash(field, precision))
+        return self.annotate(geohash=GeoHash(field, precision))
 
     def filter_cluster(self, geohash):
-        field = self.model.GEOCLUSTER_FIELD
-
-        return qs.filter(**{field + '__endswith': geohash})
+        return qs.filter(geohash__endswith=geohash)
 
 
 class GeoHashed(models.Model):
@@ -36,11 +37,11 @@ class GeoHashAndPoint(GeoHashed):
     def save(self, *args, **kwargs):
         if self.geohash is None:
             self.set_geohash(self.point)
-        self.geohash = geohash.encode(self.point, settings.GEOHASH_LENGTH)
+        super(GeoHashAndPoint, self).save(*args, **kwargs)
 
 
 def get_geohash(point):
     assert point.srid is not None, 'You must set srid for the point!'
 
     x_coord, y_coord = point.transform(4326, clone=True)  # WGS84
-    return geohash.encode(x_coord, y_coord, settings.GEOHASH_LENGTH)
+    return geohash.encode(y_coord, x_coord, settings.GEOHASH_LENGTH)

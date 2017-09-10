@@ -13,8 +13,14 @@ pytest-django = "*"
 pytest-cov = "*"
 docker-compose = "*"
 model-mommy = "*"
+dj-database-url = "*"
+psycopg2 = "*"
 
 [packages]
 django = "*"
 flake8-docstrings = "*"
 python-geohash = "*"
+
+[dev-packages.mommy-spatial-generators]
+git = "https://github.com/sigma-geosistemas/mommy-spatial-generators.git"
+editable = true

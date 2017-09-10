@@ -18,6 +18,7 @@ class Pointed(models.Model):
 
     point = models.PointField()
     objects = ClusterableQuerySet.as_manager()
+    GEOCLUSTER_FIELD = 'point'
 
     class Meta:
         app_label = 'tests'
