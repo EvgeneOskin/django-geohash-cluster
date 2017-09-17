@@ -19,13 +19,13 @@ def test_has_geohash():
 @pytest.mark.django_db
 def test_annotate_geohash():
     pointed = mommy.make(Pointed)
-    qs = Pointed.objects.cluster(precision=12)
+    qs = Pointed.objects.cluster_points(precision=12)
     x, y = pointed.point
-    assert qs[0].geohash == geohash.encode(y, x, 12)
+    assert qs[0]['point_geohash'] == geohash.encode(y, x, 12)
 
 
 @pytest.mark.django_db
 def test_group():
-    place = mommy.make(Place, _quantity=10)
-    qs = Place.objects.values("geohash").annotate(Count("geohash")).order_by()
-    assert qs.count() == 10
+    place = mommy.make(Place, _quantity=100)
+    qs = Place.objects.cluster_geohash(0)
+    assert qs.count() <= 26*2  # group by a last char in geohash

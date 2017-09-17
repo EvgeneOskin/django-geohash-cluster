@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.gis.db import models
+from django.db.models.functions import Substr, Lower
 from django.contrib.gis.db.models.functions import GeoHash
 
 from .settings import settings
@@ -9,13 +10,25 @@ import geohash
 
 class ClusterableQuerySet(models.QuerySet):
 
-    def cluster(self, precision):
+    def cluster_points(self, precision):
         field = self.model.GEOCLUSTER_FIELD
+        geohash = field + '_geohash'
+        annotated = self.annotate(**{geohash: GeoHash(field, precision)})
+        return annotated.cluster(geohash)
 
-        return self.annotate(geohash=GeoHash(field, precision))
+    def cluster_geohash(self, precision, field='geohash'):
+        geohash_start = settings.GEOHASH_LENGTH - precision
+        assert geohash_start >= 0, 'Precision is larger then then geohash size'
+
+        cluster = field + '_substr'
+        annotated = self.annotate(**{cluster: Substr(field, geohash_start)})
+        return annotated.cluster(cluster)
+
+    def cluster(self, field, out_field='cluster_count'):
+        return self.values(field).annotate(**{out_field: models.Count(field)})
 
     def filter_cluster(self, geohash):
-        return qs.filter(geohash__endswith=geohash)
+        return self.filter(geohash__endswith=geohash)
 
 
 class GeoHashed(models.Model):
