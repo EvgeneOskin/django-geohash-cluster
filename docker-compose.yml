@@ -6,6 +6,13 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: test
+      POSTGRES_USER: geohash
       POSTGRES_PASSWORD: test
-      POSTGRES_DB: geohash
+  notebook:
+    image: geonotebook/geonotebook
+    ports:
+      - 8888:8888
+    volumes:
+      - ./:/notebooks
+    depends_on:
+      - db

@@ -8,4 +8,4 @@ class Place(Pointed):
     objects = ClusterableQuerySet.as_manager()
 
     class Meta:
-        app_label = 'tests'
+        app_label = 'example'

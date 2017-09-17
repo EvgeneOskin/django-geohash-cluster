@@ -31,13 +31,27 @@ Add it to your `INSTALLED_APPS`:
 
     INSTALLED_APPS = (
         ...
-        'geohash_cluster.apps.GeohashClusterConfig',
+        'geohash_cluster',
         ...
     )
 
-Add django geohash cluster's URL patterns:
+To use with :django rest framework:https://django-geohash-cluster.readthedocs.io
+
+.. code-block:: bash
+
+    $ pip install geohash_cluster[rest]
 
 .. code-block:: python
+
+    INSTALLED_APPS = (
+        ...
+        'rest_framework',
+        'rest_framework_gis',
+        ...
+        'geohash_cluster',
+        ...
+    )
+
 
     from geohash_cluster import urls as geohash_cluster_urls
 
@@ -56,11 +70,19 @@ Features
 Running Tests
 -------------
 
+Install dependencies:
+
+
+.. code-block:: bash
+
+   pipenv install --dev
+
+
 Does the code actually work?
 
-::
+.. code-block:: bash
 
-    source <YOURVIRTUALENV>/bin/activate
+    $ source <YOURVIRTUALENV>/bin/activate
     (myenv) $ pip install tox
     (myenv) $ tox
 

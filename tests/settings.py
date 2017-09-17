@@ -13,7 +13,7 @@ SECRET_KEY = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
 
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(
-    default=('postgis://test:test@localhost:5432/geohash')
+    default=('postgis://geohash:test@localhost:5432/geohash')
 )
 
 ROOT_URLCONF = "tests.urls"

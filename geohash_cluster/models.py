@@ -5,56 +5,34 @@ from django.db.models.functions import Substr, Lower
 from django.contrib.gis.db.models.functions import GeoHash
 
 from .settings import settings
-import geohash
 
 
 class ClusterableQuerySet(models.QuerySet):
 
     def cluster_points(self, precision):
-        field = self.model.GEOCLUSTER_FIELD
-        geohash = field + '_geohash'
-        annotated = self.annotate(**{geohash: GeoHash(field, precision)})
-        return annotated.cluster(geohash)
-
-    def cluster_geohash(self, precision, field='geohash'):
-        geohash_start = settings.GEOHASH_LENGTH - precision
-        assert geohash_start >= 0, 'Precision is larger then then geohash size'
-
-        cluster = field + '_substr'
-        annotated = self.annotate(**{cluster: Substr(field, geohash_start)})
-        return annotated.cluster(cluster)
-
-    def cluster(self, field, out_field='cluster_count'):
-        return self.values(field).annotate(**{out_field: models.Count(field)})
+        field = self.geohash_field()
+        return self.annotate_geohash(precision).values(field).annotate(
+            cluster_count=models.Count(field),
+        )
 
     def filter_cluster(self, geohash):
-        return self.filter(geohash__endswith=geohash)
+        field = self.geohash_field()
+        return self.annotate_geohash(len(geohash)).filter(**{field: geohash})
+
+    def annotate_geohash(self, precision):
+        field = self.geohash_field()
+        point_field = self.model.GEOCLUSTER_FIELD
+        return self.annotate(**{field: GeoHash(point_field, precision)})
+
+    def geohash_field(self):
+        field = self.model.GEOCLUSTER_FIELD
+        return field + '_geohash'
 
 
-class GeoHashed(models.Model):
-
-    geohash = models.CharField(max_length=settings.GEOHASH_LENGTH)
-    GEOCLUSTER_FIELD = 'geohash'
-
-    class Meta(object):
-        abstract = True
-
-    def set_geohash(self, point):
-        self.geohash = get_geohash(point)
-
-
-class GeoHashAndPoint(GeoHashed):
+class Pointed(models.Model):
 
     point = models.PointField()
+    GEOCLUSTER_FIELD = 'point'
 
-    def save(self, *args, **kwargs):
-        if self.geohash is None:
-            self.set_geohash(self.point)
-        super(GeoHashAndPoint, self).save(*args, **kwargs)
-
-
-def get_geohash(point):
-    assert point.srid is not None, 'You must set srid for the point!'
-
-    x_coord, y_coord = point.transform(4326, clone=True)  # WGS84
-    return geohash.encode(y_coord, x_coord, settings.GEOHASH_LENGTH)
+    class Meta:
+        abstract = True
