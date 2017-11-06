@@ -28,7 +28,7 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '*~' -exec rm -f {} +
 
 lint: ## check style with flake8
-	flake8 geohash_cluster tests
+	flake8 geohash_cluster
 
 test: ## run tests quickly with the default Python
 	pytest --cov geohash_cluster tests
