@@ -53,19 +53,10 @@ To use with :django rest framework:https://django-geohash-cluster.readthedocs.io
     )
 
 
-    from geohash_cluster import urls as geohash_cluster_urls
-
-
-    urlpatterns = [
-        ...
-        url(r'^', include(geohash_cluster_urls)),
-        ...
-    ]
-
 Features
 --------
 
-* TODO
+* A `Pointed` model with `PointField`.
 
 Running Tests
 -------------
@@ -75,7 +66,8 @@ Install dependencies:
 
 .. code-block:: bash
 
-   pipenv install --dev
+   $ pipenv install --dev
+   $ pip install .[rest]
 
 
 Does the code actually work?
