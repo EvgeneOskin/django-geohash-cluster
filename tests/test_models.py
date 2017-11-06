@@ -4,8 +4,6 @@
 import pytest
 from model_mommy import mommy
 
-from django.db.models import Count
-from geohash_cluster import models
 import geohash
 from .models import Place
 
@@ -20,6 +18,6 @@ def test_annotate_geohash():
 
 @pytest.mark.django_db
 def test_group():
-    place = mommy.make(Place, _quantity=100)
+    mommy.make(Place, _quantity=100)
     qs = Place.objects.cluster_points(1)
-    assert qs.count() <= 26*2  # group by a last char in geohash
+    assert qs.count() <= 26 * 2  # group by a last char in geohash

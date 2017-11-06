@@ -6,6 +6,7 @@ exclude =
     .tox,
     docs/conf.py,
     build,
-    dist
+    dist,
+    tests
 max-line-length = 119
 max-complexity = 10

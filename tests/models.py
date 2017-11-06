@@ -1,5 +1,3 @@
-from django.contrib.gis.db import models
-
 from geohash_cluster.models import Pointed, ClusterableQuerySet
 
 

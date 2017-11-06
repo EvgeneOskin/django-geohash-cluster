@@ -22,6 +22,7 @@ django-leaflet = "*"
 django-jquery = "*"
 djangorestframework-gis = "*"
 "a0c22d1" = {file = "https://github.com/sigma-geosistemas/mommy_spatial_generators/archive/master.zip"}
+"flake8-docstrings" = "*"
 
 
 [packages]
