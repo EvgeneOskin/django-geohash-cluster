@@ -57,6 +57,14 @@ setup(
     ],
     include_package_data=True,
     install_requires=["django>=1.8", ],
+    extras_require={
+        'rest': [
+            'python-geohash',
+            'django-filter',
+            'django-rest-framework',
+            'djangorestframework-gis',
+        ],
+    },
     license="MIT",
     zip_safe=False,
     keywords='django-geohash-cluster',

@@ -1,0 +1,18 @@
+version: '2.2'
+
+services:
+  db:
+    image: mdillon/postgis
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: geohash
+      POSTGRES_PASSWORD: test
+  notebook:
+    image: geonotebook/geonotebook
+    ports:
+      - 8888:8888
+    volumes:
+      - ./:/notebooks
+    depends_on:
+      - db

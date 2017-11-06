@@ -1,17 +1,31 @@
 [[source]]
+
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 
+
 [dev-packages]
+
 bumpversion = "*"
 wheel = "*"
 coverage = "*"
 pytest = "*"
-flake8 = "*"
+"flake8" = "*"
 prospector = "*"
 pytest-django = "*"
 pytest-cov = "*"
+docker-compose = "*"
+model-mommy = "*"
+dj-database-url = "*"
+"psycopg2" = "*"
+django-leaflet = "*"
+django-jquery = "*"
+djangorestframework-gis = "*"
+"a0c22d1" = {file = "https://github.com/sigma-geosistemas/mommy_spatial_generators/archive/master.zip"}
+
 
 [packages]
-Django = "*"
-flake8-docstrings = "*"
+
+django = "*"
+"flake8-docstrings" = "*"
+python-geohash = "*"

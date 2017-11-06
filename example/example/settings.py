@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import dj_database_url
+from mommy_spatial_generators import MOMMY_SPATIAL_FIELDS
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'geohash_cluster',
-
+    'example',
+    'rest_framework',
+    'rest_framework_gis',
     # if your app has other dependencies that need to be added to the site
     # they should be added here
 ]
@@ -73,15 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'example.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -118,3 +113,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(
+    default=('postgis://geohash:test@localhost:5432/geohash')
+)
+MOMMY_CUSTOM_FIELDS_GEN = MOMMY_SPATIAL_FIELDS
