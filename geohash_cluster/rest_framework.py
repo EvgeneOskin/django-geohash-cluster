@@ -10,7 +10,6 @@ from rest_framework_gis.serializers import (
 )
 
 import geohash
-from .models import Pointed
 
 
 class ClusterSerializer(GeoFeatureModelSerializer):
@@ -19,12 +18,6 @@ class ClusterSerializer(GeoFeatureModelSerializer):
     point = GeometrySerializerMethodField()
     point_geohash = CharField()
     cluster_count = IntegerField()
-
-    class Meta:  # noqa
-        model = Pointed
-        id_field = False
-        geo_field = "point"
-        fields = ['point', 'point_geohash', 'cluster_count']
 
     def get_point(self, obj):
         """Parse a geohashed point to Geometry."""

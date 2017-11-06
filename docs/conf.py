@@ -18,11 +18,13 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
-cwd = os.getcwd()
-parent = os.path.dirname(cwd)
-sys.path.append(parent)
+import sys, os
+
+sys.path.append(os.path.abspath('.'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
 
 import geohash_cluster
+
 
 # -- General configuration -----------------------------------------------------
 
@@ -47,7 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'django geohash cluster'
-copyright = u'2017, Your full name here'
+copyright = u'2017, Eugene Oskin'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -193,7 +195,7 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'django-geohash-cluster.tex', u'django geohash cluster Documentation',
-   u'Your full name here', 'manual'),
+   u'Eugene Oskin', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -223,7 +225,7 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'django-geohash-cluster', u'django geohash cluster Documentation',
-     [u'Your full name here'], 1)
+     [u'Eugene Oskin'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -237,7 +239,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'django-geohash-cluster', u'django geohash cluster Documentation',
-   u'Your full name here', 'django-geohash-cluster', 'One line description of project.',
+   u'Eugene Oskin', 'django-geohash-cluster', 'One line description of project.',
    'Miscellaneous'),
 ]
 

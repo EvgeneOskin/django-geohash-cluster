@@ -35,7 +35,7 @@ Add it to your `INSTALLED_APPS`:
         ...
     )
 
-To use with :django rest framework:https://django-geohash-cluster.readthedocs.io
+To use with :Django Rest Framework:`http://www.django-rest-framework.org/`
 
 .. code-block:: bash
 
